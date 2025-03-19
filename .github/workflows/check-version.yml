@@ -1,0 +1,32 @@
+name: Check Pyproject Version
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Poetry Action
+        uses: snok/install-poetry@v1.4.1
+        with:
+          version: 1.8.4
+
+      - name: Install dependencies using Poetry
+        run: |
+          poetry install
+
+      - name: Check version in pyproject.toml
+        run: |
+          poetry run python scripts/check_version.py
