@@ -4,7 +4,7 @@ from fastapi import FastAPI
 import uvicorn
 
 from app.config import SETTINGS
-from app.facades.loggy import Loggy
+from app.loggy import Loggy
 from app.routes.main import router
 from app.routes.api import api_router
 
@@ -42,7 +42,7 @@ def run():
     this is a function so it can be called externally
     by poetry etc
     """
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="0.0.0.0", port=5005)
 
 
 if __name__ == "__main__":

@@ -44,3 +44,6 @@ poetry run dev
 ```bash
 ruff lint
 ```
+## Example use
+
+`http://127.0.0.1:5005/api/badge/standard?left_text=hello&right_text=world`

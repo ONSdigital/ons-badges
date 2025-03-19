@@ -1,9 +1,8 @@
 from pathlib import Path
-from pydantic import Field
 from pydantic_settings import BaseSettings
 
-from app.facades.loggy import Loggy
-from app.meta.singleton_meta import SingletonMeta
+from app.loggy import Loggy
+from app.singleton import SingletonMeta
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
@@ -14,11 +13,8 @@ class Environment(BaseSettings):
     and fetch them from the .env file.
     """
 
-    # This will automatically fetch the value of the PROJECT_ID environment variable
-    project_id: str = Field(validation_alias="PROJECT_ID")
-
     # Put other environment variables here ...
-
+    # E.g project_id: str = Field(validation_alias="PROJECT_ID")
     class Config:
         env_file = PROJECT_ROOT / ".env"  # Ensure path always points to the root of the project
 
@@ -38,9 +34,6 @@ class AppSettings(metaclass=SingletonMeta):
 
         # Allow project root to be accessed directly
         self.project_root = PROJECT_ROOT
-
-        # Allow project ID to be accessed directly
-        self.project_id = env_settings.project_id
 
     def get_env_table(self) -> str:
         """
