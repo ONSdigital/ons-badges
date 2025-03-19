@@ -4,8 +4,9 @@ from fastapi import FastAPI
 import uvicorn
 
 from app.config import SETTINGS
-from app.facades.loggy import Loggy
-from app.routes import router
+from app.loggy import Loggy
+from app.routes.main import router
+from app.routes.api import api_router
 
 
 @asynccontextmanager
@@ -19,7 +20,7 @@ async def lifespan(_app: FastAPI):
     # Configure logging
     Loggy.configure_logger()
 
-    Loggy.info("Starting sdx-fastapi-boilerplate", logger="uvicorn")
+    Loggy.info("Starting ons-badges", logger="uvicorn")
 
     # Log all the config settings
     Loggy.info(SETTINGS.get_env_table())
@@ -27,11 +28,12 @@ async def lifespan(_app: FastAPI):
     # Run the app
     yield
 
-    Loggy.info("Shutting down sdx-fastapi-boilerplate", logger="uvicorn")
+    Loggy.info("Shutting down ons-badges", logger="uvicorn")
 
 
-app = FastAPI(title="sdx-fastapi-boilerplate", lifespan=lifespan)
+app = FastAPI(title="ons-badges", lifespan=lifespan)
 app.include_router(router)
+app.include_router(api_router)
 
 
 def run():
@@ -40,7 +42,7 @@ def run():
     this is a function so it can be called externally
     by poetry etc
     """
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="0.0.0.0", port=5005)
 
 
 if __name__ == "__main__":
