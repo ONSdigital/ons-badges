@@ -116,5 +116,5 @@ def generate_svg(left_text: str, right_text: str, bg: str, fg: str) -> str:
         new_left_shape=new_left_shape,
         new_right_shape=new_right_shape,
         new_right_text_x=new_right_text_x,
-        new_global_width=new_global_width
+        new_global_width=new_global_width,
     )

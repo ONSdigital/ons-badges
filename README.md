@@ -77,10 +77,10 @@ docker build -t ons-badges .
 docker run -p 5005:5005 ons-badges
 ```
 
-## Linting
+## Formatter
 
 ```bash
-ruff lint
+ruff format
 ```
 ## Example use
 
