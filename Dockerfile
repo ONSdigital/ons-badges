@@ -75,7 +75,7 @@ COPY app ./app
 COPY --from=frontend-builder /frontend/app/static ./app/static
 
 # Copy the pyproject.toml file
-COPY pyproject.toml pyproject.toml
+COPY pyproject.toml poetry.lock ./
 
 # Run Poetry
-CMD ["poetry", "run", "main"]
+CMD ["poetry", "run", "python", "-m","app.main"]
