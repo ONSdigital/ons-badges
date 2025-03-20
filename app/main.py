@@ -29,10 +29,15 @@ async def lifespan(_app: FastAPI):
 
     # Check the static directory exists
     if os.path.isdir(SETTINGS.static_dir):
-        Loggy.info("Loaded frontend successfully!", logger="uvicorn")
-        # Serve frontends static files
-        app.mount("/static", StaticFiles(directory="app/static"), name="static")
-        SETTINGS.ui_enabled = True
+
+        # Check if index.html exists
+        if os.path.exists(os.path.join(SETTINGS.static_dir, "index.html")):
+            Loggy.info("Loaded frontend successfully!", logger="uvicorn")
+            # Serve frontends static files
+            app.mount("/static", StaticFiles(directory="app/static"), name="static")
+            SETTINGS.ui_enabled = True
+        else:
+            Loggy.warning("No index.html found, frontend will not be served", logger="uvicorn")
     else:
         Loggy.warning("No static directory found, frontend will not be served", logger="uvicorn")
 
