@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
     vueDevTools(),
     tailwindcss(),
   ],
+
+  build: {
+    outDir: path.resolve(__dirname, '../app/static'), // Output into FastAPI's static folder
+    emptyOutDir: true,
+  },
 
   resolve: {
     alias: {
