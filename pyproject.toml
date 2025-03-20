@@ -27,3 +27,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 dev = "app.main:run"
+main = "app.main:run"
