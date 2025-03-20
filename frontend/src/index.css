@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+    --color-ons-default: #003c57;
+    --color-ons-success: #0f8243;
+    --color-ons-danger: #d0021b;
+    --color-ons-warning: #fa6401;
+    --color-ons-gray: #414042;
+
+}

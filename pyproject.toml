@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "sdx-fastapi-boilerplate"
+name = "ons-badges"
 version = "0.0.3"
-description = "A boilerplate for a FastAPI service"
+description = "Generate ONS style badges"
 authors = ["Angus <angus.goody@ons.gov.uk>"]
 readme = "README.md"
 packages = [
