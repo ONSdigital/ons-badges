@@ -2,84 +2,45 @@
     <div class="bg-gray-100 rounded-lg p-4">
         <fieldset>
             <legend class="block mb-2 text-sm font-medium text-gray-900">Choose a colour</legend>
-            <RadioGroup v-model="colour" class="mt-6 flex items-center gap-x-3">
-
-                <div class="flex flex-col items-center gap-y-1">
-                    <RadioGroupOption v-slot="{ checked }" value="default">
+            <RadioGroup v-model="selectedColour" class="mt-6 flex items-center gap-x-3" @update:modelValue="emitSelection">
+                <div v-for="(option, index) in colorOptions" :key="index" class="flex flex-col items-center gap-y-1">
+                    <RadioGroupOption v-slot="{ checked }" :value="option">
                         <label
-                            aria-label="default"
+                            :aria-label="option.name"
                             :class="[
-                    'relative flex cursor-pointer items-center justify-center rounded-full p-1 text-[#003c57] ring-current focus:outline-hidden',
-                      checked && 'ring-3 ring-offset-1'
-                ]"
+                                'relative flex cursor-pointer items-center justify-center rounded-full p-1 ring-current focus:outline-hidden',
+                                `text-[${option.bg}]`,
+                                checked && 'ring-3 ring-offset-1'
+                            ]"
                         >
-                            <input type="radio" name="color-choice" value="Pink" class="sr-only">
+                            <input type="radio" name="color-choice" :value="option.name" class="sr-only">
                             <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current"></span>
                         </label>
                     </RadioGroupOption>
-                    <small class="text-gray-900  text-center w-full">Default</small>
-                </div>
-
-                <div class="flex flex-col items-center gap-y-1">
-                    <RadioGroupOption v-slot="{ checked }" value="danger">
-                        <label
-                            aria-label="Danger"
-                            :class="[
-                    'relative flex cursor-pointer items-center justify-center rounded-full p-1 text-[#d0021b] ring-current focus:outline-hidden',
-                      checked && 'ring-3 ring-offset-1'
-                ]"
-                        >
-                            <input type="radio" name="color-choice" value="Pink" class="sr-only">
-                            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current"></span>
-                        </label>
-                    </RadioGroupOption>
-                    <small class="text-gray-900  text-center w-full">Danger</small>
-                </div>
-
-                <div class="flex flex-col items-center gap-y-1">
-                    <RadioGroupOption v-slot="{ checked }" value="success">
-                        <label
-                            aria-label="Success"
-                            :class="[
-                    'relative flex cursor-pointer items-center justify-center rounded-full p-1 text-[#0f8243] ring-current focus:outline-hidden',
-                      checked && 'ring-3 ring-offset-1'
-                ]"
-                        >
-                            <input type="radio" name="color-choice" value="Pink" class="sr-only">
-                            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current"></span>
-                        </label>
-                    </RadioGroupOption>
-                    <small class="text-gray-900  text-center w-full">Success</small>
-                </div>
-
-                <div class="flex flex-col items-center gap-y-1">
-                    <RadioGroupOption v-slot="{ checked }" value="warning">
-                        <label
-                            aria-label="Warning"
-                            :class="[
-                    'relative flex cursor-pointer items-center justify-center rounded-full p-1 text-[#fa6401] ring-current focus:outline-hidden',
-                      checked && 'ring-3 ring-offset-1'
-                ]"
-                        >
-                            <input type="radio" name="color-choice" value="Pink" class="sr-only">
-                            <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-current"></span>
-                        </label>
-                    </RadioGroupOption>
-                    <small class="text-gray-900  text-center w-full">Warning</small>
+                    <small class="text-gray-900 text-center w-full">{{ option.name }}</small>
                 </div>
             </RadioGroup>
         </fieldset>
     </div>
-
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import {
-    RadioGroup,
-    RadioGroupLabel,
-    RadioGroupOption,
-  } from '@headlessui/vue'
+import { ref, defineEmits } from 'vue'
+import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
 
-  const colour = ref('default')
+const emit = defineEmits(['update:selected'])
+
+const colorOptions = [
+    { name: "Default", bg: "#013B61", fg: "#ffffff" },
+    { name: "Error", bg: "#D0021B", fg: "#ffffff" },
+    { name: "Success", bg: "#0F8243", fg: "#ffffff" },
+    { name: "Warning", bg: "#FA6401", fg: "#000000" },
+    { name: "Gray", bg: "#414042", fg: "#ffffff" }
+]
+
+const selectedColour = ref(colorOptions[0])
+
+const emitSelection = (value) => {
+    emit('update:selected', value)
+}
 </script>

@@ -16,15 +16,15 @@
                                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                     <div class="w-full">
                                         <label for="left_text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Left Text</label>
-                                        <input type="text" name="left_text" id="left_text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                        <input v-model="leftText" type="text" name="left_text" id="left_text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                     </div>
                                     <div class="w-full">
                                         <label for="right_text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Right Text</label>
-                                        <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                        <input v-model="rightText" type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                     </div>
 
                                     <div class="sm:col-span-2">
-                                        <ColourSelect/>
+                                        <ColourSelect @update:selected="handleColorSelection"/>
                                     </div>
                                 </div>
                             </form>
@@ -34,7 +34,29 @@
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">SVG Preview</h2>
                         <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
                             <div class="bg-white rounded-lg p-8">
-                                SVG
+                                <svg :width="newGlobalWidth" height="20px" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="ons-badge">
+                                        <g id="middle">
+                                            <rect id="background" :x="newBackgroundX" y="0" width="13.572" height="20" style="fill:#fff;"/>
+                                        </g>
+                                        <g id="left">
+                                            <path id="left-shape" :d="newLeftShape" style="fill:#a8bd3a;"/>
+                                            <g id="left-text-section">
+                                                <text x="3.893px" y="14.039px" style="font-family: monospace; font-weight:400;font-size:11.315px;fill:#000000;">
+                                                    {{ leftText }}
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="right">
+                                            <path id="right-shape" :d="newRightShape" :fill="selectedColor.bg"/>
+                                            <g id="right-text-section">
+                                                <text :x="newRightTextX" y="14.039px" style="font-family: monospace; font-weight:400;font-size:11.315px;" :fill="selectedColor.fg">
+                                                    {{ rightText }}
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -57,24 +79,19 @@ export default {
             leftText: "A",
             rightText: "B",
 
-            charWidth: 109.283,
-
-            // Orignal widths
-            originalGlobalWidth: 360, //Pixels
-            selectedColor: { name: "Default", bg: "#013B61", fg: "#ffffff" },
-            colorOptions: [
-                { name: "Default", bg: "#013B61", fg: "#ffffff" },
-                { name: "Error", bg: "#D0021B", fg: "#ffffff" },
-                { name: "Success", bg: "#0F8243", fg: "#ffffff" },
-                { name: "Warning", bg: "#FA6401", fg: "000000" },
-                { name: "Gray", bg: "#414042", fg: "#ffffff" }
-            ]
+            charWidth: 7.5,
+            selectedColor: { name: "Default", bg: "#013B61", fg: "#ffffff" }
 
         };
     },
+    methods: {
+        handleColorSelection(colour) {
+            this.selectedColor = colour
+        }
+    },
     computed: {
         getTextWidth() {
-            return (text, font = "176.512px 'monospace'") => {
+            return (text) => {
                 return text.length * this.charWidth;
             };
         },
@@ -92,36 +109,38 @@ export default {
             return parseInt(this.getTextWidth(this.rightText), 10);
         },
 
-        newBackground()
+        newBackgroundX()
         {
-            const newPos = 74 + this.leftShift;
-            return newPos;
+            return 4.744 + this.leftShift;
         },
 
-        newLeft(){
-            const newTop = 171.876 + this.leftShift;
-            const newBottom = 9.039 + this.leftShift;
-            const newStart = 74 + this.leftShift;
-            return `M${newStart},312l-${newBottom},0c-35.877,0 -64.961,-29.084 -64.961,-64.961l0,-182.078c0,-35.877 29.084,-64.961 64.961,-64.961l${newTop},0l-162.837,312Z`;
+        newLeftShape() {
+            const newTop = 11.018 + this.leftShift;
+            const newBottom = 0.58 + this.leftShift;
+            const newStart = 4.744 + this.leftShift;
+
+            return `M${newStart},20l-${newBottom},-0c-2.3,-0 -4.164,-1.864 -4.164,-4.164l0,-11.672c0,-2.3 1.864,-4.164 4.164,-4.164l${newTop},0l-10.438,20Z`;
         },
 
-        newRight()
-        {
-            const newTop = 9.039 + this.rightShift;
-            const newBottom = 171.877 + this.rightShift;
-            const newStart = 285.717 + this.leftShift;
-            return `M${newStart},0l${newTop},0c35.877,-0 64.961,29.084 64.961,64.961l-0,182.078c-0,35.877 -29.084,64.961 -64.961,64.961l-${newBottom},0l162.838,-312Z`;
+
+        newRightShape() {
+            const newTop = 0.58 + this.rightShift;
+            const newBottom = 11.018 + this.rightShift;
+            const newStart = 18.315 + this.leftShift;
+
+            return `M${newStart},0l${newTop},0c2.299,-0 4.164,1.864 4.164,4.164l-0,11.672c-0,2.3 -1.865,4.164 -4.164,4.164l-${newBottom},-0l10.438,-20Z`;
         },
 
-        newRightTextPos()
+
+        newRightTextX()
         {
-            const originalPos = 272.444;
+            const originalPos = 20.464 ;
             return originalPos + this.leftShift;
         },
 
         newGlobalWidth()
         {
-            return this.originalGlobalWidth + this.leftShift + this.rightShift;
+            return 24 + this.leftShift + this.rightShift;
         },
 
 
@@ -129,6 +148,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Optional: Add custom styling */
-</style>
