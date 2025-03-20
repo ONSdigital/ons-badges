@@ -38,7 +38,7 @@ RUN poetry install --no-root --no-dev
 FROM node:20 AS frontend-builder
 
 # Set working directory inside frontend folder
-WORKDIR /frontend
+WORKDIR /frontend/temp/
 
 # Copy package.json and install dependencies (better caching)
 COPY frontend/package.json frontend/package-lock.json ./
@@ -68,10 +68,10 @@ COPY --from=builder /root/.local /root/.local
 # Copy installed Python dependencies (Poetry virtual environment)
 COPY --from=builder /app/.venv /app/.venv
 
-# Copy app
+# Copy app source code
 COPY app ./app
 
-# Copy the frontend build output
+# Copy the frontend build output (FIXED PATH)
 COPY --from=frontend-builder /frontend/app/static ./app/static
 
 # Copy the pyproject.toml file
