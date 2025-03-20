@@ -33,7 +33,7 @@
                     <div class="col-span-4 ">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">SVG Preview</h2>
                         <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
-                            <div class="bg-white rounded-lg p-10 text-center">
+                            <div class="bg-white rounded-lg p-10 text-center overflow-scroll">
                                 <svg :width="newGlobalWidth" height="40px" xmlns="http://www.w3.org/2000/svg"  style="transform: scale(2); transform-origin: top left;">
                                     <g id="ons-badge">
                                         <g id="middle">
