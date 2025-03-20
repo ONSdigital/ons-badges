@@ -171,3 +171,4 @@ cython_debug/
 .vscode
 
 *.DS_Store
+node_modules
