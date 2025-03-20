@@ -61,6 +61,21 @@ npm install
 npm run dev
 ```
 
+## Run with Docker
+
+The Dockerfile will build the frontend and backend and run the service on port 5005.
+
+### Build the image
+
+```bash
+docker build -t ons-badges .
+```
+
+### Run the container
+
+```bash
+docker run -p 5005:5005 ons-badges
+```
 
 ## Linting
 
