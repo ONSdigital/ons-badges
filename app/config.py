@@ -34,6 +34,8 @@ class AppSettings(metaclass=SingletonMeta):
 
         # Allow project root to be accessed directly
         self.project_root = PROJECT_ROOT
+        self.static_dir = PROJECT_ROOT / "app" / "static"
+        self.ui_enabled = False
 
     def get_env_table(self) -> str:
         """

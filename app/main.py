@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -26,6 +27,15 @@ async def lifespan(_app: FastAPI):
     # Log all the config settings
     Loggy.info(SETTINGS.get_env_table())
 
+    # Check the static directory exists
+    if os.path.isdir(SETTINGS.static_dir):
+        Loggy.info("Loaded frontend successfully!", logger="uvicorn")
+        # Serve frontends static files
+        app.mount("/static", StaticFiles(directory="app/static"), name="static")
+        SETTINGS.ui_enabled = True
+    else:
+        Loggy.warning("No static directory found, frontend will not be served", logger="uvicorn")
+
     # Run the app
     yield
 
@@ -33,9 +43,6 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(title="ons-badges", lifespan=lifespan)
-
-# Serve frontends static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 app.include_router(router)
 app.include_router(api_router)
