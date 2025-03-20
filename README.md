@@ -35,9 +35,32 @@ poetry --version
 
 ## Running the service
 
+### Building the frontend (optional)
+
+To build the optional homepage frontend, run the following command:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+### Running the service
+
 ```bash
 poetry run dev
 ```
+
+## Working with the frontend
+
+If you wish to develop and work on the frontend, you can run the following command to start the frontend in development mode:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
 
 ## Linting
 
