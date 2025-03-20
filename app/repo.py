@@ -32,7 +32,9 @@ def fetch_raw_content(url: str, file_path: str) -> str:
     elif response.status_code == 404:
         raise RepositoryException(f"File '{file_path}' not found in the repository")
     else:
-        raise RepositoryException(f"Error fetching file '{file_path}', error code: {response.status_code}")
+        raise RepositoryException(
+            f"Error fetching file '{file_path}', error code: {response.status_code}"
+        )
 
 
 def get_repo_version(url: str) -> str:
@@ -49,7 +51,9 @@ def get_repo_version(url: str) -> str:
         pyproject_data = toml.loads(raw_content)
         return pyproject_data["tool"]["poetry"]["version"]
     except (KeyError, toml.TomlDecodeError):
-        raise RepositoryException("Error parsing pyproject.toml file or version not found")
+        raise RepositoryException(
+            "Error parsing pyproject.toml file or version not found"
+        )
 
 
 def get_repo_python_version(url: str) -> str:
@@ -68,4 +72,6 @@ def get_repo_python_version(url: str) -> str:
         # Remove the caret from the version
         return python_version.replace("^", "")
     except (KeyError, toml.TomlDecodeError):
-        raise RepositoryException("Error parsing pyproject.toml file or Python version not found")
+        raise RepositoryException(
+            "Error parsing pyproject.toml file or Python version not found"
+        )

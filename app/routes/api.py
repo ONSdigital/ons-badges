@@ -101,4 +101,3 @@ def get_python_version(
     )
 
     return Response(content=svg_content, media_type="image/svg+xml")
-

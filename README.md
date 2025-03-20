@@ -35,14 +35,52 @@ poetry --version
 
 ## Running the service
 
+### Building the frontend (optional)
+
+To build the optional homepage frontend, run the following command:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+### Running the service
+
 ```bash
 poetry run dev
 ```
 
-## Linting
+## Working with the frontend
+
+If you wish to develop and work on the frontend, you can run the following command to start the frontend in development mode:
 
 ```bash
-ruff lint
+cd frontend
+npm install
+npm run dev
+```
+
+## Run with Docker
+
+The Dockerfile will build the frontend and backend and run the service on port 5005.
+
+### Build the image
+
+```bash
+docker build -t ons-badges .
+```
+
+### Run the container
+
+```bash
+docker run -p 5005:5005 ons-badges
+```
+
+## Formatter
+
+```bash
+ruff format
 ```
 ## Example use
 
