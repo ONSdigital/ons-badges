@@ -18,6 +18,7 @@ export default defineConfig({
     outDir: path.resolve(__dirname, '../app/static'), // Output into FastAPI's static folder
     emptyOutDir: true,
   },
+  base: '/static/',
 
   resolve: {
     alias: {

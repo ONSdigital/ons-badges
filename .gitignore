@@ -173,3 +173,4 @@ cython_debug/
 *.DS_Store
 node_modules
 .vite
+app/static

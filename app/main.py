@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from app.config import SETTINGS
@@ -32,6 +33,10 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(title="ons-badges", lifespan=lifespan)
+
+# Serve frontends static files
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 app.include_router(router)
 app.include_router(api_router)
 
