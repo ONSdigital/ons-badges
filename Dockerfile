@@ -33,26 +33,27 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root --no-dev
 
 # ==============================
-# 2. Frontend Builder Stage (Tailwind & Static Files)
+# 2. Frontend Builder Stage (Vite + Tailwind)
 # ==============================
 FROM node:20 AS frontend-builder
 
-# Set working directory
-WORKDIR /app
+# Set working directory inside frontend folder
+WORKDIR /frontend
 
-# Copy package.json and install dependencies first for caching optimization
+# Copy package.json and install dependencies (better caching)
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install --frozen-lockfile
 
-# Copy the rest of the frontend files and build
+# Copy the rest of the frontend source files
 COPY frontend ./
+
+# Build Vite output directly into FastAPI's `app/static/`
 RUN npm run build
 
 # ==============================
 # 3. Final Stage (Runtime)
 # ==============================
 FROM python:3.13-slim
-
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -67,11 +68,14 @@ COPY --from=builder /root/.local /root/.local
 # Copy installed Python dependencies (Poetry virtual environment)
 COPY --from=builder /app/.venv /app/.venv
 
-# Copy application source code (only necessary files)
-COPY . .
+# Copy app
+COPY app ./app
 
-# Copy built static files from the frontend builder stage
-COPY --from=frontend-builder /app/static /app/app/static
+# Copy the frontend build output
+COPY --from=frontend-builder /frontend/app/static ./app/static
 
-# Run Poetry run
+# Copy the pyproject.toml file
+COPY pyproject.toml pyproject.toml
+
+# Run Poetry
 CMD ["poetry", "run", "main"]
