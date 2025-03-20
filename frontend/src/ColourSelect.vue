@@ -1,14 +1,14 @@
 <template>
-    <div class="bg-gray-100 rounded-lg p-4">
         <fieldset>
-            <legend class="block mb-2 text-sm font-medium text-gray-900">Choose a colour</legend>
-            <RadioGroup v-model="selectedColour" class="mt-6 flex items-center gap-x-3" @update:modelValue="emitSelection">
+            <legend class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a colour</legend>
+            <div class="bg-gray-100 rounded-lg p-4">
+                <RadioGroup v-model="selectedColour" class="flex items-center gap-x-5" @update:modelValue="emitSelection">
                 <div v-for="(option, index) in colorOptions" :key="index" class="flex flex-col items-center gap-y-1">
                     <RadioGroupOption v-slot="{ checked }" :value="option">
                         <label
                             :aria-label="option.name"
                             :class="[
-                                'relative flex cursor-pointer items-center justify-center rounded-full p-1 ring-current focus:outline-hidden',
+                                'relative flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-current focus:outline-hidden',
                                 option.classes,
                                 checked && 'ring-3 ring-offset-1'
                             ]"
@@ -20,10 +20,8 @@
                     <small class="text-gray-900 text-center w-full">{{ option.name }}</small>
                 </div>
             </RadioGroup>
-
-
+            </div>
         </fieldset>
-    </div>
 </template>
 
 <script setup>
