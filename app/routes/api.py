@@ -1,6 +1,7 @@
 from enum import Enum
 
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Query
+from fastapi.responses import JSONResponse
 
 from app.exceptions import RepositoryException, RepositoryOwnerNotAllowed
 from app.repo import get_repo_version, get_repo_python_version
@@ -17,17 +18,17 @@ class BadgeColour(str, Enum):
     standard = "standard"
 
 
-@api_router.get("/badge/standard", response_class=Response)
+@api_router.get("/badge/custom", response_class=Response)
 def get_badge(
-    left_text: str,
-    right_text: str,
+    left: str,
+    right: str,
     colour: BadgeColour = BadgeColour.standard,
 ):
     """
     Generate a standard badge as an SVG with left_text, right_text, and an optional colour.
-    Allowed colours: success, danger, warning, grey, standard.
-    :param left_text: str - the text to display on the left
-    :param right_text: str - the text to display on the right
+    Allowed colours: success, error, warning, grey, standard.
+    :param left: str - the text to display on the left
+    :param right: str - the text to display on the right
     :param colour: BadgeColour - the colour of the right section
     :return: SVG badge
     """
@@ -44,8 +45,8 @@ def get_badge(
     bg, fg = colour_map[colour]
 
     svg_content = generate_svg(
-        left_text=left_text,
-        right_text=right_text,
+        left_text=left,
+        right_text=right,
         bg=bg,
         fg=fg,
     )
@@ -53,10 +54,8 @@ def get_badge(
     return Response(content=svg_content, media_type="image/svg+xml")
 
 
-@api_router.get("/repo/version", response_class=Response)
-def get_version(
-    url: str,
-):
+@api_router.get("/badge/repo/version", response_class=Response)
+def get_version(url: str = Query(..., description="Repository URL")):
     """
     Generate a badge for a repository version.
     :param url:  the url of the repository
@@ -66,9 +65,9 @@ def get_version(
     try:
         version = get_repo_version(url)
     except RepositoryOwnerNotAllowed as e:
-        return Response(content=str(e), status_code=403)
+        return JSONResponse(content={"error": str(e)}, status_code=403)
     except RepositoryException as e:
-        return Response(content=str(e), status_code=422)
+        return JSONResponse(content={"error": str(e)}, status_code=422)
 
     svg_content = generate_svg(
         left_text="version",
@@ -80,10 +79,8 @@ def get_version(
     return Response(content=svg_content, media_type="image/svg+xml")
 
 
-@api_router.get("/repo/python-version", response_class=Response)
-def get_python_version(
-    url: str,
-):
+@api_router.get("/badge/repo/python-version", response_class=Response)
+def get_python_version(url: str = Query(..., description="Repository URL")):
     """
     Generate a badge for a repository python version.
     :param url:  the url of the repository
@@ -93,9 +90,9 @@ def get_python_version(
     try:
         version = get_repo_python_version(url)
     except RepositoryOwnerNotAllowed as e:
-        return Response(content=str(e), status_code=403)
+        return JSONResponse(content={"error": str(e)}, status_code=403)
     except RepositoryException as e:
-        return Response(content=str(e), status_code=422)
+        return JSONResponse(content={"error": str(e)}, status_code=422)
 
     svg_content = generate_svg(
         left_text="python",
