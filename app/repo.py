@@ -21,6 +21,10 @@ def fetch_raw_content(url: str, file_path: str) -> str:
 
     owner, repo = path_parts[:2]
 
+    # Ensure that the owner is on the allowed list
+    if owner.lower() not in ["onsdigital"]:
+        raise RepositoryException("Unauthorized repository owner")
+
     # GitHub API URL to fetch the raw content of the specified file
     api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}"
     headers = {"Accept": "application/vnd.github.v3.raw"}  # Request raw content
