@@ -19,15 +19,15 @@ class BadgeColour(str, Enum):
 
 @api_router.get("/badge/standard", response_class=Response)
 def get_badge(
-    left_text: str,
-    right_text: str,
+    left: str,
+    right: str,
     colour: BadgeColour = BadgeColour.standard,
 ):
     """
     Generate a standard badge as an SVG with left_text, right_text, and an optional colour.
     Allowed colours: success, danger, warning, grey, standard.
-    :param left_text: str - the text to display on the left
-    :param right_text: str - the text to display on the right
+    :param left: str - the text to display on the left
+    :param right: str - the text to display on the right
     :param colour: BadgeColour - the colour of the right section
     :return: SVG badge
     """
@@ -44,8 +44,8 @@ def get_badge(
     bg, fg = colour_map[colour]
 
     svg_content = generate_svg(
-        left_text=left_text,
-        right_text=right_text,
+        left_text=left,
+        right_text=right,
         bg=bg,
         fg=fg,
     )
