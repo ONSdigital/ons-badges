@@ -3,6 +3,8 @@
 
 # ons-badges
 
+![Version](https://ons-badges-290227325370.europe-west2.run.app/api/badge/repo/version?url=https://github.com/ONSdigital/ons-badges) ![Python](https://ons-badges-290227325370.europe-west2.run.app/api/badge/repo/python-version?url=https://github.com/ONSdigital/ons-badges) 
+
 A very simple fastapi service to generate badges for use in GitHub repositories.
 
 ## Prerequisites
