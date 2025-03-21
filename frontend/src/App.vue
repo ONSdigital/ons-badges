@@ -1,8 +1,8 @@
 <template>
-    <div class="h-full bg-gray-200 dark:bg-gray-900">
-        <div class="container mx-auto p-4 sm:p-10">
+    <div class="flex min-h-screen h-full flex-col bg-gray-200 dark:bg-gray-900">
+        <div class="container mx-auto p-4 sm:p-10 flex-1">
             <header>
-                <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-[#a8bd3a] from-[#f0f762]">ONS</span> Badges</h1>
+                <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-[#206095] dark:to-[#a8bd3a] from-[#003c57] dark:from-[#f0f762]">ONS</span> Badges</h1>
                 <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Generate dynamic ONS themed badges for README's</p>
             </header>
 
@@ -78,14 +78,16 @@
             </main>
 
         </div>
+        <Footer />
     </div>
 </template>
 
 <script>
 import ColourSelect from "@/ColourSelect.vue";
+import Footer from "@/Footer.vue";
 
 export default {
-    components: {ColourSelect},
+    components: {Footer, ColourSelect},
     data() {
         return {
 
