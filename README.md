@@ -7,6 +7,12 @@
 
 A very simple fastapi service to generate badges for use in GitHub repositories.
 
+## Playground
+
+Visit the playground to generate badges online ...
+
+[https://ons-badges-290227325370.europe-west2.run.app/](https://ons-badges-290227325370.europe-west2.run.app/)
+
 ## Prerequisites
 
 - Python 3.13
