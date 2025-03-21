@@ -31,11 +31,11 @@ import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
 const emit = defineEmits(['update:selected'])
 
 const colorOptions = [
-    { name: "Default", bg: "#013B61", fg: "#ffffff", classes: "text-ons-default" },
-    { name: "Error", bg: "#D0021B", fg: "#ffffff", classes: "text-ons-danger" },
-    { name: "Success", bg: "#0F8243", fg: "#ffffff", classes: "text-ons-success" },
-    { name: "Warning", bg: "#FA6401", fg: "#000000", classes: "text-ons-warning" },
-    { name: "Gray", bg: "#414042", fg: "#ffffff", classes: "text-ons-gray" }
+    { name: "standard", bg: "#013B61", fg: "#ffffff", classes: "text-ons-default" },
+    { name: "error", bg: "#D0021B", fg: "#ffffff", classes: "text-ons-danger" },
+    { name: "success", bg: "#0F8243", fg: "#ffffff", classes: "text-ons-success" },
+    { name: "warning", bg: "#FA6401", fg: "#000000", classes: "text-ons-warning" },
+    { name: "grey", bg: "#414042", fg: "#ffffff", classes: "text-ons-grey" }
 ]
 
 const selectedColour = ref(colorOptions[0])

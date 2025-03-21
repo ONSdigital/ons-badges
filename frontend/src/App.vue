@@ -26,6 +26,22 @@
                                     <div class="sm:col-span-2">
                                         <ColourSelect @update:selected="handleColorSelection"/>
                                     </div>
+
+                                    <!-- Link preview -->
+                                    <div class="sm:col-span-2">
+                                        <div class="mb-2">
+                                            <p class="block text-sm font-medium text-gray-900 dark:text-white">Api Link</p>
+                                            <small class="text-gray-700 dark:text-gray-200">Use this link to call the api to generate this badge</small>
+                                        </div>
+
+                                        <div class="overflow-scroll">
+                                            <a :href="apiLink" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            {{ apiLink }}
+                                            </a>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -80,7 +96,7 @@ export default {
             rightText: "B",
 
             charWidth: 7.5,
-            selectedColor: { name: "Default", bg: "#013B61", fg: "#ffffff" }
+            selectedColor: { name: "standard", bg: "#013B61", fg: "#ffffff" },
 
         };
     },
@@ -90,6 +106,11 @@ export default {
         }
     },
     computed: {
+
+        apiLink() {
+            return `/api/badge/standard?left_text=${this.leftText}&right_text=${this.rightText}&colour=${this.selectedColor.name}`;
+        },
+
         getTextWidth() {
             return (text) => {
                 return text.length * this.charWidth;

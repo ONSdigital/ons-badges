@@ -2,7 +2,7 @@ from enum import Enum
 
 from fastapi import APIRouter, Response
 
-from app.exceptions import RepositoryException
+from app.exceptions import RepositoryException, RepositoryOwnerNotAllowed
 from app.repo import get_repo_version, get_repo_python_version
 from app.svg import generate_svg
 
@@ -11,7 +11,7 @@ api_router = APIRouter(prefix="/api")
 
 class BadgeColour(str, Enum):
     success = "success"
-    danger = "danger"
+    error = "error"
     warning = "warning"
     grey = "grey"
     standard = "standard"
@@ -35,7 +35,7 @@ def get_badge(
     # Choose bg and fg colours based on the colour parameter
     colour_map = {
         BadgeColour.success: ("#0F8243", "#ffffff"),
-        BadgeColour.danger: ("#D0021B", "#ffffff"),
+        BadgeColour.error: ("#D0021B", "#ffffff"),
         BadgeColour.warning: ("#FA6401", "#000000"),
         BadgeColour.grey: ("#414042", "#ffffff"),
         BadgeColour.standard: ("#013B61", "#ffffff"),
@@ -65,6 +65,8 @@ def get_version(
 
     try:
         version = get_repo_version(url)
+    except RepositoryOwnerNotAllowed as e:
+        return Response(content=str(e), status_code=403)
     except RepositoryException as e:
         return Response(content=str(e), status_code=422)
 
@@ -90,6 +92,8 @@ def get_python_version(
 
     try:
         version = get_repo_python_version(url)
+    except RepositoryOwnerNotAllowed as e:
+        return Response(content=str(e), status_code=403)
     except RepositoryException as e:
         return Response(content=str(e), status_code=422)
 
