@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ons-badges"
-version = "0.0.9"
+version = "0.0.10"
 description = "Generate ONS style badges"
 authors = ["Angus <angus.goody@ons.gov.uk>"]
 readme = "README.md"
