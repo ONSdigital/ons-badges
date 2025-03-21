@@ -1,19 +1,19 @@
 <template>
     <div class="h-full bg-gray-200 dark:bg-gray-900">
-        <div class="container mx-auto p-10">
+        <div class="container mx-auto p-4 sm:p-10">
             <header>
                 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-[#a8bd3a] from-[#f0f762]">ONS</span> Badges</h1>
                 <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Generate dynamic ONS themed badges for README's</p>
             </header>
 
-            <main class="py-20">
-                <div class="grid grid-cols-10 gap-10">
-                    <div class="col-span-6 ">
+            <main class="py-10 sm:py-20">
+                <div class="grid grid-cols-1 md:grid-cols-10 gap-10">
+                    <div class="md:col-span-6">
 
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Generate a preview</h2>
                         <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
                             <form>
-                                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="grid gap-4 md:grid-cols-2 md:gap-6">
                                     <div class="w-full">
                                         <label for="left_text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Left Text</label>
                                         <input v-model="leftText" type="text" name="left_text" id="left_text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
@@ -22,19 +22,17 @@
                                         <label for="right_text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Right Text</label>
                                         <input v-model="rightText" type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                     </div>
-
-                                    <div class="sm:col-span-2">
+                                    <div class="md:col-span-2">
                                         <ColourSelect @update:selected="handleColorSelection"/>
                                     </div>
-
                                     <!-- Link preview -->
-                                    <div class="sm:col-span-2">
+                                    <div class="md:col-span-2 overflow-hidden">
                                         <div class="mb-2">
                                             <p class="block text-sm font-medium text-gray-900 dark:text-white">Api Link</p>
                                             <small class="text-gray-700 dark:text-gray-200">Use this link to call the api to generate this badge</small>
                                         </div>
 
-                                        <div class="overflow-scroll">
+                                        <div class="overflow-scroll whitespace-nowrap">
                                             <a :href="apiLink" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ apiLink }}
                                             </a>
@@ -46,7 +44,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-span-4 ">
+                    <div class="md:col-span-4 ">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">SVG Preview</h2>
                         <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
                             <div class="bg-white rounded-lg p-10 text-center overflow-scroll">
