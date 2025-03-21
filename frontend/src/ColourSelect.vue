@@ -2,7 +2,7 @@
         <fieldset>
             <legend class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a colour</legend>
             <div class="bg-gray-100 rounded-lg p-4">
-                <RadioGroup v-model="selectedColour" class="flex items-center gap-x-5" @update:modelValue="emitSelection">
+                <RadioGroup v-model="selectedColour" class="flex flex-wrap gap-4" @update:modelValue="emitSelection">
                 <div v-for="(option, index) in colorOptions" :key="index" class="flex flex-col items-center gap-y-1">
                     <RadioGroupOption v-slot="{ checked }" :value="option">
                         <label
