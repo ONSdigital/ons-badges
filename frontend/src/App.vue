@@ -108,7 +108,7 @@ export default {
     computed: {
 
         apiLink() {
-            return `/api/badge/standard?left=${this.leftText}&right=${this.rightText}&colour=${this.selectedColor.name}`;
+            return `/api/badge/custom?left=${this.leftText}&right=${this.rightText}&colour=${this.selectedColor.name}`;
         },
 
         getTextWidth() {

@@ -84,17 +84,17 @@ ruff format
 ```
 ## Example use
 
-### Standard Badge
+### Custom Badge
 
 This badge will display two pieces of text, one on the left and one on the right.
 
-`http://127.0.0.1:5005/api/badge/standard?left_text=hello&right_text=world`
+`http://127.0.0.1:5005/api/badge/custom?left_text=hello&right_text=world`
 
 ### Version Badge
 
 This badge will dynamically fetch the version from the `pypoetry.toml` file in a specified repository.
 
-`http://127.0.0.1:5005/api/repo/version?url=https://github.com/ONSdigital/sdx-transformer`
+`http://127.0.0.1:5005/api/badge/repo/version?url=https://github.com/ONSdigital/sdx-transformer`
 
 ## Configure allowed owners
 
