@@ -55,9 +55,7 @@ def get_badge(
 
 
 @api_router.get("/badge/repo/version", response_class=Response)
-def get_version(
-    url: str = Query(..., description="Repository URL")
-):
+def get_version(url: str = Query(..., description="Repository URL")):
     """
     Generate a badge for a repository version.
     :param url:  the url of the repository
@@ -82,9 +80,7 @@ def get_version(
 
 
 @api_router.get("/badge/repo/python-version", response_class=Response)
-def get_python_version(
-    url: str = Query(..., description="Repository URL")
-):
+def get_python_version(url: str = Query(..., description="Repository URL")):
     """
     Generate a badge for a repository python version.
     :param url:  the url of the repository
