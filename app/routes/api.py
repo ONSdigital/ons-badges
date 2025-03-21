@@ -2,7 +2,7 @@ from enum import Enum
 
 from fastapi import APIRouter, Response
 
-from app.exceptions import RepositoryException
+from app.exceptions import RepositoryException, RepositoryOwnerNotAllowed
 from app.repo import get_repo_version, get_repo_python_version
 from app.svg import generate_svg
 
@@ -65,6 +65,8 @@ def get_version(
 
     try:
         version = get_repo_version(url)
+    except RepositoryOwnerNotAllowed as e:
+        return Response(content=str(e), status_code=403)
     except RepositoryException as e:
         return Response(content=str(e), status_code=422)
 
@@ -90,6 +92,8 @@ def get_python_version(
 
     try:
         version = get_repo_python_version(url)
+    except RepositoryOwnerNotAllowed as e:
+        return Response(content=str(e), status_code=403)
     except RepositoryException as e:
         return Response(content=str(e), status_code=422)
 
