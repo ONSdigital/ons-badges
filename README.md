@@ -95,3 +95,7 @@ This badge will display two pieces of text, one on the left and one on the right
 This badge will dynamically fetch the version from the `pypoetry.toml` file in a specified repository.
 
 `http://127.0.0.1:5005/api/repo/version?url=https://github.com/ONSdigital/sdx-transformer`
+
+## Configure allowed owners
+
+Currently the repository routes are configured to only allow repositories that are owned by the ONS. To change this, the list of allowed owners in `app/repo.py`. Or modify the code to use Environment Variables which is probably a better idea.
