@@ -90,7 +90,7 @@ ruff format
 
 This badge will display two pieces of text, one on the left and one on the right.
 
-`http://127.0.0.1:5005/api/badge/custom?left_text=hello&right_text=world`
+`http://127.0.0.1:5005/api/badge/custom?left=hello&right=world`
 
 ### Version Badge
 
@@ -101,3 +101,11 @@ This badge will dynamically fetch the version from the `pypoetry.toml` file in a
 ## Configure allowed owners
 
 Currently the repository routes are configured to only allow repositories that are owned by the ONS. To change this, the list of allowed owners in `app/repo.py`. Or modify the code to use Environment Variables which is probably a better idea.
+
+## Add badges to your README
+
+To add a badge to your README, use the following markdown:
+
+```markdown
+![Badge](https:YOUR_INSTANCE_URL/api/badge/custom?left=hello&right=world)
+```
