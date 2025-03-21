@@ -96,7 +96,7 @@ export default {
             rightText: "B",
 
             charWidth: 7.5,
-            selectedColor: { name: "Default", bg: "#013B61", fg: "#ffffff" },
+            selectedColor: { name: "standard", bg: "#013B61", fg: "#ffffff" },
 
         };
     },

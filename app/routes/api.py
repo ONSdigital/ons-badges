@@ -11,7 +11,7 @@ api_router = APIRouter(prefix="/api")
 
 class BadgeColour(str, Enum):
     success = "success"
-    danger = "danger"
+    error = "error"
     warning = "warning"
     grey = "grey"
     standard = "standard"
@@ -35,7 +35,7 @@ def get_badge(
     # Choose bg and fg colours based on the colour parameter
     colour_map = {
         BadgeColour.success: ("#0F8243", "#ffffff"),
-        BadgeColour.danger: ("#D0021B", "#ffffff"),
+        BadgeColour.error: ("#D0021B", "#ffffff"),
         BadgeColour.warning: ("#FA6401", "#000000"),
         BadgeColour.grey: ("#414042", "#ffffff"),
         BadgeColour.standard: ("#013B61", "#ffffff"),
