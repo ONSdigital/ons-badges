@@ -35,7 +35,7 @@
                                         </div>
 
                                         <div class="overflow-scroll">
-                                            <a :href="apiLink" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <a :href="apiLink" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ apiLink }}
                                             </a>
                                         </div>
