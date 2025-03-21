@@ -3,6 +3,10 @@ import toml
 from urllib.parse import urlparse
 from app.exceptions import RepositoryException, RepositoryOwnerNotAllowed
 
+# Allowed repository owners (all others are unauthorized)
+
+ALLOWED_OWNERS = ["onsdigital"]
+
 
 def fetch_raw_content(url: str, file_path: str) -> str:
     """
@@ -22,7 +26,7 @@ def fetch_raw_content(url: str, file_path: str) -> str:
     owner, repo = path_parts[:2]
 
     # Ensure that the owner is on the allowed list
-    if owner.lower() not in ["onsdigital"]:
+    if owner.lower() not in ALLOWED_OWNERS:
         raise RepositoryOwnerNotAllowed("Unauthorized repository owner")
 
     # GitHub API URL to fetch the raw content of the specified file
